@@ -1,0 +1,218 @@
+Book
+
+	1. Fact Book Transaction :: Transactional Fact
+		Dimensions ::
+			a) Date --> have hierarchy
+			b) Time
+			c) book --> have hierarchy on publication and country
+				I) title
+				II) isbn
+				III) publication Date
+				IV) edition
+				V) Publisher name ----> SCD 1
+				VI) Publisher desciption
+				VII) Publisher Phone
+				.... other publisher info ...
+				VIII) desciption
+				IX) salesInfo base Price ----> SCD 2
+				X) salesInfo discount ----> SCD 2
+			d) customer
+				I) First Name
+				II) Last Name
+				III) gender
+				IV) email
+				V) phone --> SCD 3
+				VI) Country --> SCD 1
+				VII) dateJoined
+
+		Measures ::
+			a) price
+
+	2. Fact Book Genre :: Factless Fact table
+		Dimensions ::
+			a) book
+			b) Genre
+				I) name
+
+	3. Fact Book Author :: Factless Fact table
+		Dimensions ::
+			a) book
+			b) Author
+				I) name
+				II) country --> SCD 3
+				III) birthday
+				IV) description
+
+	4. Fact Book rating :: Accumulative Fact table
+		Dimension :: 
+			a) book
+		Measures ::
+			rating
+
+	5. Fact Book Selling :: Accumulative Fact table --> For best selling books
+		Dimenstions ::
+			a) book --> have hierarchy on publication
+				--> without edition field
+				--> price SCD 1
+		Measures ::
+			price
+
+
+---------------------------------------------------------------------------------------------------------------------
+Customer
+
+	1. Fact Customer purchase :: Accumulative Fact Table
+		Dimenstions::
+			a) Customer
+				I) First Name
+				II) Last Name
+				III) gender
+				IV) email
+				V) phone --> SCD 3
+				VI) Country --> SCD 1
+				VII) dateJoined
+		Measures::
+			a) pricce --> sum
+
+	2. Fact Customer transactions :: Transactional Fact table
+		Dimenstions ::
+			a) customer
+			c) type
+			b) songs
+			e) Movies
+			f) books
+			g) series
+		measure ::
+			price
+
+---------------------------------------------------------------------------------------------------------------------
+Movie
+
+	1. Fact Movie Transaction :: Transactional Fact
+		Dimensions ::
+			a) Date --> have hierarchy
+			b) Time
+			c) Movie --> have hierarchy on Country and Company
+				I) title
+				II) release date
+				III) Production company name --> SCD 3
+				IV) Production company desciption
+				... other Production company  fields
+				V) desciption
+				VI) salesInfo base Price ----> SCD 2
+				VII) salesInfo discount ----> SCD 2
+			d) customer
+				I) First Name
+				II) Last Name
+				III) gender
+				IV) email
+				V) phone --> SCD 3
+				VI) Country --> SCD 1
+				VII) dateJoined
+
+		Measures ::
+			a) price
+
+	2. Fact Movie Actors :: Factless Fact table
+		Dimensions ::
+			a) Movie
+			b) Actor
+				I) name
+				II) country
+				III) birthday
+				IV) Description
+
+	3. Fact Movie Director :: Factless Fact table
+		Dimensions ::
+			a) Movie
+			b) director
+				I) name
+				II) country --> SCD 3
+				III) birthday
+				IV) description
+
+	4. Fact Movie Genre :: Factless Fact table
+		Dimensions ::
+			a) Movie
+			b) Genre
+				I) name
+
+	5. Fact Movie rating :: Accumulative Fact table
+		Dimension :: 
+			a) Movie
+		Measures ::
+			avg rating
+
+	6. Fact Movie Selling :: Accumulative Fact table --> For best selling movies
+		Dimenstions ::
+			a) Movie --> have hierarchy on company and country
+				--> price SCD 1
+		Measures ::
+			price
+
+------------------------------------------------------
+Song
+
+	1. Fact Song Transaction :: Transactional Fact
+		Dimensions ::
+			a) Date --> have hierarchy
+			b) Time
+			c) Track --> have hierarchy on Country and Company
+				I) title
+				II) Album
+				III) Album publisher
+				IV) Album description
+				V) Album release Date
+				VI) salesInfo base Price ----> SCD 2
+				VII) salesInfo discount ----> SCD 2
+				VIII) length
+			d) customer
+				I) First Name
+				II) Last Name
+				III) gender
+				IV) email
+				V) phone --> SCD 3
+				VI) Country --> SCD 1
+				VII) dateJoined
+
+		Measures ::
+			a) price
+
+	2. Fact Song Artists :: Factless Fact table
+		Dimensions ::
+			a) Track
+			b) Artist
+				I) name
+				II) country
+				III) birthday
+				IV) Description
+
+	3. Fact Song Genre :: Factless Fact table
+		Dimensions ::
+			a) Song
+			b) Genre
+				I) name
+
+	4. Fact Song rating :: Accumulative Fact table
+		Dimension :: 
+			a) Song
+		Measures ::
+			avg rating
+
+	5. Fact Song Selling :: Accumulative Fact table --> For best selling movies
+		Dimenstions ::
+			a) Song --> have hierarchy on country
+				--> price SCD 1
+		Measures ::
+			price
+
+-------------------------------------------------------------------------------
+Series
+
+-------------------------------------------------------------------------------
+Note:::
+	1. Create tables and fields for each of these facts and dimensions
+		1.1. create staging area
+	2. Field lenght should be slightly larger than source
+	3. ETL Documentation --> How to obtain each field from source
+	4. Create Procedure 
